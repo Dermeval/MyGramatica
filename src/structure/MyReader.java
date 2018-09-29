@@ -39,28 +39,35 @@ public class MyReader {
             String currentLine;
             String acc = "";
             while ((currentLine = br.readLine()) != null) {
+                CheckLineComment checkNLineComment = new CheckLineComment();
+                if (!checkNLineComment.checkLineComment(currentLine, "")) {
 
-                String[] splited = currentLine.split("");
-                for (int i = 0; i < splited.length; i++) {
-                    String current = splited[i];
-                    if (CheckWord(current, acc)) {
-                        acc = acc + current;
-                        if (i == (splited.length - 1)) {
-                            CheckWord(acc);
-                            acc = "";
-                        }
+                    String[] splited = currentLine.split("");
+                    for (int i = 0; i < splited.length; i++) {
+                        String current = splited[i];
+                        if (CheckWord(current, acc)) {
+                            acc = acc + current;
+                            if (i == (splited.length - 1)) {
+                                CheckWord(acc);
+                                acc = "";
+                            }
 
-                    } else {
-                        if (!acc.equals("")) {
-                            CheckWord(acc);
-                            acc = "";
-                            CheckWord(current);
+                        } else {
+                            if (!acc.equals("")) {
+                                CheckWord(acc);
+                                acc = "";
+                                CheckWord(current);
+                            }
                         }
+                        ;
+
                     }
-                    ;
-
+                    linha++;
+                } else {
+                    Tokens.add(new token(currentLine, "Comentario", linha));
+                    linha++;
                 }
-                linha++;
+
             }
 
         } catch (FileNotFoundException ex) {
@@ -81,17 +88,19 @@ public class MyReader {
         CheckReserved reserved = new CheckReserved();
         CheckIdent ident = new CheckIdent();
         CheckAritmetic aritmetic = new CheckAritmetic();
-        CheckRelacional relacional = new CheckRelacional();
+        CheckRelacional relacmional = new CheckRelacional();
         CheckLogical logical = new CheckLogical();
+        CheckDelim delim = new CheckDelim();
 
         boolean isNumber = number.checkNumber(current, acumulador);
         boolean isIdent = ident.CheckIdent(current, acumulador);
         boolean isReserved = reserved.checkReservada(current, acumulador);
         boolean isAritmetic = aritmetic.checkAritmetic(current, acumulador);
-        boolean isRelacional = relacional.checkRelacional(current, acumulador);
+        boolean isRelacional = relacmional.checkRelacional(current, acumulador);
         boolean isLogical = logical.checkLogical(current, acumulador);
+        boolean isdelim = delim.checkDelim(current, acumulador);
 
-        if (isNumber || isIdent || isReserved || isAritmetic || isRelacional || isLogical) {
+        if (isNumber || isIdent || isReserved || isAritmetic || isRelacional || isLogical || isdelim) {
             return true;
         }
 
@@ -113,39 +122,66 @@ public class MyReader {
         }
 
         if (new CheckNumber().checkNumber("", current)) {
-            token poped = Tokens.pop();
-            if (poped.getData().equals("-")) {
-                String temp = poped.getData() + current;
-                poped.setData(temp);
-                poped.setType("Numero");
-                Tokens.add(poped);
+            if (!Tokens.isEmpty()) {
+
+                token poped = Tokens.pop();
+                if (poped.getData().equals("-")) {
+                    String temp = poped.getData() + current;
+                    poped.setData(temp);
+                    poped.setType("Numero");
+                    Tokens.add(poped);
+                    System.out.println("adicionar na lista de Numeros: " + current);
+                } else {
+                    if (poped.getType().equals("TempNumero")) {
+                        poped.setData(poped.getData() + current);
+                        poped.setType("Numero");
+                        Tokens.add(poped);
+                    } else {
+                        
+                        
+                        Tokens.add(poped);
+                                                
+                        Tokens.add(new token(current, "Numero", linha));
+                    }
+                }
+
             } else {
-                Tokens.add(poped);
+
                 Tokens.add(new token(current, "Numero", linha));
+                System.out.println("adicionar na lista de Numeros: " + current);
             }
-            System.out.println("adicionar na lista de Numeros: " + current);
+
         }
 
         if (new CheckAritmetic().checkAritmetic("", current)) {
-            token poped = Tokens.pop();
-            if (poped.getData().equals("+")) {
-                String temp = poped.getData() + current;
-                poped.setData(temp);
-                poped.setType("OP Aritmetico");
-                Tokens.add(poped);
-            } else {
-                if (poped.getData().equals("-")) {
+            if (!Tokens.isEmpty()) {
+
+                token poped = Tokens.pop();
+                if (poped.getData().equals("+")) {
                     String temp = poped.getData() + current;
                     poped.setData(temp);
                     poped.setType("OP Aritmetico");
                     Tokens.add(poped);
+                } else {
+                    if (poped.getData().equals("-")) {
+                        String temp = poped.getData() + current;
+                        poped.setData(temp);
+                        poped.setType("OP Aritmetico");
+                        Tokens.add(poped);
+                    }
+
+                    Tokens.add(poped);
+                    token token = new token(current, "OP Aritmetico", linha);
+                    Tokens.add(token);
+
+                    System.out.println("adicionar na lista de Operadores A: " + current);
                 }
 
-                Tokens.add(poped);
+            } else {
                 token token = new token(current, "OP Aritmetico", linha);
                 Tokens.add(token);
-
                 System.out.println("adicionar na lista de Operadores A: " + current);
+
             }
 
         }
@@ -177,8 +213,24 @@ public class MyReader {
         if (new CheckLogical().checkLogical("", current)) {
             token token = new token(current, "OP Logico", linha);
             Tokens.add(token);
-            
+
             System.out.println("adicionar na lista de Operadores Log: " + current);
+        }
+        if (new CheckDelim().checkDelim(current, "")) {
+            if (current.equals(".") && !Tokens.isEmpty()) {
+                token poped = Tokens.pop();
+                if (poped.getType().equals("Numero")) {
+                    poped.setData(poped.getData() + current);
+                    poped.setType("TempNumero");
+                    Tokens.add(poped);
+                }
+
+            } else {
+                Tokens.add(new token(current, "Delim", linha));
+                System.out.println("achou o ponto");
+
+            }
+
         }
 
     }

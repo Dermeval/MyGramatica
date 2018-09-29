@@ -1,4 +1,3 @@
-
 package lex;
 
 /**
@@ -6,12 +5,12 @@ package lex;
  * @author Dermeval Neves e Elias Monteiro
  */
 
-public class CheckLineComment {
+public class CkeckBlocComment {
 
     private String regex;
 
-    public CheckLineComment() {
-        this.regex = "(\\/\\*)(.|\\s)*?(\\*\\/)";
+    public CkeckBlocComment() {
+        this.regex = "^(/\\*).*(\\*/)$";
 
     }
     

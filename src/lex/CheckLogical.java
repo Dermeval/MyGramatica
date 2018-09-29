@@ -6,9 +6,10 @@
 package lex;
 
 /**
- *
- * @author elias
+ * Classe responsável pelo comportamento do Regex de Identificador
+ * @author Dermeval Neves e Elias Monteiro
  */
+
 public class CheckLogical {
 
     private String regex;

@@ -8,6 +8,7 @@ package runner;
 import java.io.File;
 import java.util.Stack;
 import javax.swing.JFileChooser;
+import lex.CheckNumber;
 import structure.MyReader;
 import structure.token;
 
@@ -23,8 +24,10 @@ public class Main {
         MyReader reader = new MyReader(selectedFile);
         reader.readLine();
         Stack<token> tokens = reader.getTokens();
+        System.out.println("jf");
+        
+        
 
-        System.out.println("pause");
 
     }
 

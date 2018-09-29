@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lex;
 
 /**
- *
- * @author elias
+ * Classe responsável pelo comportamento do Regex do Delimitador
+ * @author Dermeval Neves e Elias Monteiro
  */
+
 public class CheckDelim {
 
     private String regex;
@@ -19,6 +16,13 @@ public class CheckDelim {
 
     }
 
+    /**
+     * Método que verifica a categoria do próximo caractere lido
+     * @param current Palavra atual que está sendo lida
+     * @param acc Acumulador que acumula os caracteres lidos
+     * @return retorna um delimitador
+     */
+    
     public boolean checkDelim(String current, String acc) {
         current = current + acc;
         return current.matches(regex);
