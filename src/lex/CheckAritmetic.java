@@ -1,9 +1,12 @@
+
 package lex;
 
 /**
- * Classe responsável pelo comportamento do Regex de Operador Aritmético
+ * Classe responsável pelo comportamento do Regex de Operador Aritimético
+ *
  * @author Dermeval Neves e Elias Monteiro
  */
+
 public class CheckAritmetic {
 
     private String regex;
@@ -13,12 +16,12 @@ public class CheckAritmetic {
         this.regex = "\\-\\-|\\-|\\+\\+|\\+|\\*|\\/";
     }
 
-    /** Método que 
-    * @param current Caractere que está sendo lido 
-    * @param acc Acumulador - Acumula os caracteres para verificação
-    */
-    
-    
+    /** 
+     * Método que verifica a categoria do próximo caractere retornando os caracteres que forem operaores aritiméticos
+     * @param current Palavra atual que está sendo lida
+     * @param acc Acumulador que acumula os caracteres lidos
+     * @return retorna um operador aritimético
+     */
     public boolean checkAritmetic(String current, String acc) {
         current = current + acc;
         return current.matches(regex);

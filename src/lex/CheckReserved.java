@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lex;
 
 /**
- * Classe responsável pelo comportamento do Regex de Identificador
+ * Classe responsável pelo comportamento do Regex de Palavras Reservadas
+ *
  * @author Dermeval Neves e Elias Monteiro
  */
-
 public class CheckReserved {
     
     
@@ -20,6 +16,13 @@ public class CheckReserved {
        
 
     }
+    
+    /** 
+     * Método que verifica a categoria do próximo caractere retornando os caracteres que forem Palavras Reservadas
+     * @param current Palavra atual que está sendo lida
+     * @param acc Acumulador que acumula os caracteres lidos
+     * @return retorna uma Palavra Reservada
+     */
     public boolean checkReservada(String current , String acc ){
         
         acc = acc+current;

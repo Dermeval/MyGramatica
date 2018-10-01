@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package runner;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Stack;
 import javax.swing.JFileChooser;
-import lex.CheckNumber;
 import structure.MyReader;
 import structure.token;
 
@@ -22,13 +18,30 @@ public class Main {
         chooser.showOpenDialog(chooser);
         File selectedFile = chooser.getSelectedFile();
         MyReader reader = new MyReader(selectedFile);
-        reader.readLine();
+        reader.readbyWord();
+        reader.CheckUnknow();
         Stack<token> tokens = reader.getTokens();
-        System.out.println("jf");
-        
-        
-
-
+        ArrayList<token> unk = reader.unknowTokens();
+        System.out.println("");  
     }
-
 }
+        
+        /*File listaArquivos = new File("entrada");
+        File[] arquivos = listaArquivos.listFiles();
+        MyReader reader2 = new MyReader(listaArquivos);
+
+        for (File file : arquivos) {
+            if(!file.isDirectory() && !file.getName().contains("output_")){
+                
+                //reader2.unknowTokens(file);
+            }
+    }
+    }
+    */
+
+        
+    
+    
+    
+
+

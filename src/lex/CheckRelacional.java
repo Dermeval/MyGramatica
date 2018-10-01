@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lex;
 
 /**
- * Classe responsável pelo comportamento do Regex de Identificador
+ * Classe responsável pelo comportamento do Regex de Operadore Relacional
+ *
  * @author Dermeval Neves e Elias Monteiro
  */
 
@@ -19,6 +16,13 @@ public class CheckRelacional {
 
     }
 
+    /** 
+     * Método que verifica a categoria do próximo caractere retornando os caracteres que forem operaores relacionais
+     * @param current Palavra atual que está sendo lida
+     * @param acc Acumulador que acumula os caracteres lidos
+     * @return retorna um Operador Relacional
+     */
+    
     public boolean checkRelacional(String current, String acc) {
         current = current + acc;
         return current.matches(regex);

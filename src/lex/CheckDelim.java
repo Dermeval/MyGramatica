@@ -2,7 +2,8 @@
 package lex;
 
 /**
- * Classe responsável pelo comportamento do Regex do Delimitador
+ * Classe responsável pelo comportamento do Regex de delimitador
+ *
  * @author Dermeval Neves e Elias Monteiro
  */
 
@@ -16,8 +17,8 @@ public class CheckDelim {
 
     }
 
-    /**
-     * Método que verifica a categoria do próximo caractere lido
+    /** 
+     * Método que verifica a categoria do próximo caractere retornando os caracteres que forem delimitador
      * @param current Palavra atual que está sendo lida
      * @param acc Acumulador que acumula os caracteres lidos
      * @return retorna um delimitador

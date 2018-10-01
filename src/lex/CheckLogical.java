@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lex;
 
 /**
- * Classe responsável pelo comportamento do Regex de Identificador
+ * Classe responsável pelo comportamento do Regex de Operadores Lógicos
+ *
  * @author Dermeval Neves e Elias Monteiro
  */
 
@@ -19,6 +16,12 @@ public class CheckLogical {
         this.regex = "\\!|\\&\\&|\\|\\|";
     }
 
+    /** 
+     * Método que verifica a categoria do próximo caractere retornando os caracteres que forem operadores lógicos
+     * @param current Palavra atual que está sendo lida
+     * @param acumulador Acumulador que acumula os caracteres lidos
+     * @return retorna um operador lógico
+     */
     public boolean checkLogical(String current, String acumulador) {
         current = current + acumulador;
         String[] logicos = {"!", "&&", "||", "&"};
